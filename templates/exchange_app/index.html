@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+<style>
+    body {
+      background-image: url({{ 'static/img/stok.jpg' }});
+    }
+    </style>
+{% endblock head%}
+
+
+
+{% block content %}
+<br><br><br>
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <div class="card mt-5">
+            <div class="card-body">
+                <div class="card-title py-3">
+                    <h4>Exchanger</h4>
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row align-items-center">
+                      <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInput">Amount</label>
+                        <input type="text" name='amount' class="form-control mb-2 mt-1" id="inlineFormInput" placeholder="For Example: 1200.96" value="{% if result %}{{amount}}{% endif %}">
+                      </div>
+                      <div class="col-auto">
+                        <label class="sr-only">Convert from</label>
+                        <div class="input-group mb-2 mt-1">
+                          <select class="form-control" name="from_curr" id="from_curr"  >
+                              {% if result %}
+                              <option selected>{{from_curr}}</option>
+                              {% endif %}
+
+                              {% for curr in currencies %}
+                              <option value="{{curr}}">{{curr}}</option>
+                              {% endfor%}
+
+                          </select>
+                        </div>
+                      </div>
+                        <div class="col-auto">
+                        <label class="sr-only">Convert to</label>
+                        <div class="input-group mb-2 mt-1">
+                          <select class="form-control" name="to_curr" id="to_curr">
+                              {% if result %}
+                              <option selected>{{to_curr}}</option>
+
+                              {% endif %}
+                              {% for curr in currencies %}
+                              <option value="{{curr}}">{{curr}}</option>
+                              {% endfor%}
+
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-auto">
+
+                      </div>
+                      <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-2 mt-3">Convert</button>
+
+
+
+
+                      </div>
+
+                    </div>
+                </form>
+                {% if result %}
+                <div class="col-auto">
+                    <label class="sr-only mt-1" >Result</label>
+                    <input  class="form-control mb-2 mt-1"  placeholder="Your Result" value="{{result}}">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+
+
+
+
+
+{% endblock content %}
